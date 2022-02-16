@@ -34,8 +34,13 @@ add_filter( 'cutemi_get_templated_profiles', 'cutemi_template_php_example_get_te
 function cutemi_template_php_activate(){
 	do_action('cutemi_refresh_css');
 }
-register_deactivation_hook( __FILE__, 'cutemi_template_php_activate' );
 register_activation_hook( __FILE__, 'cutemi_template_php_activate' );
+
+function cutemi_template_php_deactivate(){
+	remove_filter( 'cutemi_table_generic_style', 'cutemi_template_php_example_css' );
+	do_action('cutemi_refresh_css');
+}
+register_deactivation_hook( __FILE__, 'cutemi_template_php_deactivate' );
 
 function cutemi_template_php_example_css($css) {
 	$css .= '
